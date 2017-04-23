@@ -6,11 +6,15 @@ In this article you will setup a development environment on your computer, which
 
 ## Code Editor
 
-First of all, you need a code editor. We really recommend **Atom**, which is open source, configurable and available for macOS, Windows and Linux.
+First of all, you need a code editor. We really recommend Atom, which is open source, configurable and available for macOS, Windows and Linux.
 
 1. Download from [Atom.io](https://atom.io/) the right installer for your operating system
 2. Install Atom and open it afterwards
-3. 
+3. Select the "Welcome" tab, disable the checkbox *Show welcome guide when opening Atom* and close the tab
+4. Select the *Telemetry Consent* tab and decide whether you want to send statistics or not to Atom
+5. Open from the top menu *File > Settings* and select in the left menu *Install*
+6. Search for package `language-vue-component` and click on *install*
+7. Close the settings tab
 
 ## Node.js
 
