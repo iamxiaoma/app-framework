@@ -6,10 +6,10 @@ In this tutorial, I will show you, how I use **App Framework** to create and pub
 
 Please do not hesitate to raise your open questions to the [issue list](https://github.com/scriptPilot/app-framework/issues).
 
-- Setup my development environment
-- Install App Framework
-- Design my application
-- Develop my application
-- Test my application
-- Build my application
-- Publish my application
+- [Setup my development environment](setup.md)
+- [Install App Framework](installation.md)
+- [Design my application](design.md)
+- [Develop my application](development.md)
+- [Test my application](testing.md)
+- [Build my application](building.md)
+- [Publish my application](publishing.md)
