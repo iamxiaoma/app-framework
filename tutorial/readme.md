@@ -2,9 +2,14 @@
 
 > First contact with App Framework? Please read our [Readme file](../README.md) first!
 
-In this tutorial, I will show you how to use **App Framework** to design, develop, test, build and publish your own application.
+In this tutorial, I will show you, how I use **App Framework** to create and publish my own Todo App.
 
 Please do not hesitate to raise your open questions to our [issue list](https://github.com/scriptPilot/app-framework/issues).
 
-- Chapter A
-- Chapter B
+- Setup my development environment
+- Install App Framework
+- Design my application
+- Develop my application
+- Test my application
+- Build my application
+- Publish my application
