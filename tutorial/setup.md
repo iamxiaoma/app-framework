@@ -41,4 +41,4 @@ At the end of the installation process, you should reboot your computer.
 
 ---
 
-> Next tutorial article: [Install App Framework](#installation)
+> Next tutorial article: [Install App Framework](#installation.md)
