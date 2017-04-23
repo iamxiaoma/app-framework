@@ -27,7 +27,7 @@ To run the App Framework scripts and the development server, you need to install
 
 App Framework will create lightweight and well-organized project folders, which are well-prepared for Git publishing.
 
-Because of the nice richfull interface and multiple ways for collaboration, we recommend GitHub. There is a desktop client available for macOS and Windows.
+Because of the multiple ways for collaboration, we recommend GitHub. There is a desktop client available for macOS and Windows.
 
 1. Create an account on [GitHub.com](https://github.com/join)
 2. Download from [GitHub.com](https://desktop.github.com/) the right installer for your operating system
