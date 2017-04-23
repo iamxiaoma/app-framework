@@ -37,7 +37,7 @@ Because of the multiple ways for collaboration, we recommend GitHub. There is a 
 
 ## Reboot
 
-At the end of the installation process, you should reboot your computer
+At the end of the installation process, you should reboot your computer.
 
 ---
 
