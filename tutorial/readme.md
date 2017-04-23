@@ -12,4 +12,4 @@ If you have any comment or question to this tutorial, we are happy to help you i
 - [Develop your application](development.md)
 - [Test your application](testing.md)
 - [Build your application](building.md)
-- [Publish your application](publishing.md)
+- [Deploy your application](deployment.md)
