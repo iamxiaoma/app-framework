@@ -18,7 +18,7 @@ First of all, you need a code editor. We really recommend Atom, which is open so
 
 ## Node.js
 
-To run App Framework and the development server, you need to install **Node.js**, which is available for macOS, Windows and Linux.
+To run the App Framework scripts and the development server, you need to install **Node.js**, which is available for macOS, Windows and Linux.
 
 1. Download from [Nodejs.org](https://nodejs.org/) the right installer for your operating system
 2. 
