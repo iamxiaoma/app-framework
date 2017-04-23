@@ -1,6 +1,6 @@
 # App Framework - Tutorial
 
-> First contact with App Framework? Please read our [Readme file](../README.txt) first!
+> First contact with App Framework? Please read our [Readme file](../README.md) first!
 
 In this tutorial, I will show you how to use **App Framework** to design, develop, test, build and publish your own application.
 
