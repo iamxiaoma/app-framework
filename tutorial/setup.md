@@ -14,27 +14,29 @@ First of all, you need a code editor. We really recommend Atom, which is open so
 4. Select the *Telemetry Consent* tab and decide whether you want to send statistics or not to Atom
 5. Open from the top menu *File > Settings* and select in the left menu *Install*
 6. Search for package `language-vue-component` and click on *install*
-7. Close the settings tab
+7. Close the settings tab and Atom itself
 
 ## Node.js
 
-To run the App Framework scripts and the development server, you need to install **Node.js**, which is available for macOS, Windows and Linux.
+To run the App Framework scripts and the development server, you need to install Node.js, which is available for macOS, Windows and Linux.
 
 1. Download from [Nodejs.org](https://nodejs.org/) the right installer for your operating system
-2. 
+2. Install Node.js with default settings
 
+## Git client
 
+App Framework will create a lightweight and well-organized project folder, which is well-prepared for Git publishing. Because of the nice richfull interface and multiple ways for collaboration, we recommend GitHub. There is a desktop client available for macOS and Windows.
 
-App Framework will be installed as Node.js  created a well-organized and lightweight
+1. Create an account on [GitHub.com](https://github.com/join)
+2. Download from [GitHub.com](https://desktop.github.com/) the right installer for your operating system
+3. Install GitHub Desktop and log in with your credentials
+4. Configure your user name and a email address under which your will commit to GitHub
+5. Close the GitHub Desktop client
 
-## Node JS
+## Reboot
 
-https://nodejs.org/en/
+At the end of the installation process, you should reboot your computer
 
-## Text editor
+---
 
-https://atom.io/
-
-## GitHub
-
-https://desktop.github.com/
+> Next article: [Install App Framework](#installation)
