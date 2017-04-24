@@ -8,7 +8,11 @@
 - [Project folder structure](#project-folder-structure)
 - [Configuration options](#configuration-options)
 - [CLI commands](#cli-commands)
-- [Vue hooks](#vue-hooks)
+- [Window objects](#window-objects)
+- [Vue root object](#vue-root-object)
+- [Global data object](#global-data-object)
+- [State restoration](#state-restoration)
+- [Hooks](#hooks)
 - Workflow
   - [Setup your development environment](#setup-your-development-environment)
   - [Install App Framework](#install-app-framework)
@@ -33,6 +37,7 @@ Optional:
 - [Vue.js](https://vuejs.org/v2/guide/) to make your application state-based and reactive
 - [Firebase services](https://firebase.google.com/docs/web/setup) as free and reliable backend service provider
 - [Cordova/PhoneGap](https://cordova.apache.org/docs/en/latest/) to use device hardware API plugins
+- [iOS design guidelines](https://developer.apple.com/ios/human-interface-guidelines/overview/design-principles/) and [Material design guidelines](https://material.io/guidelines/)
 
 ## Project folder structure
 
@@ -46,7 +51,7 @@ The following project folder will be created by default.
 │   ├── config.js               # App configuration
 │   ├── database-rules.json     # Firebase database rules
 │   ├── icon.png                # App icon file (minimum size is 1024 pixel)
-│   ├── routes.json             # App routes
+│   ├── routes.json             # App routes configuration
 │   └── storage-rules.txt       # Firebase storage rules
 ├── build                       # Latest build files (do not modify)
 ├── design                      # Design templates (PDF, Power Point)
@@ -62,12 +67,12 @@ The following project folder will be created by default.
 Configure your application easily in the `app/config.js` file.
 
 <!-- config-options -->
-Option | Allowed | Default
+Option | Allowed | Default
 :--- |:--- |:---
 title | *string* | My App
 defaultLanguage | /^([a-z]{2})$/ | en
-theme | ios, material | ios
-loadIconFonts | *object* |
+theme | ios, material, ios-material, material-ios | ios
+useIconFonts | *object* |
 &nbsp;&nbsp;&nbsp;framework7 | *boolean* | false
 &nbsp;&nbsp;&nbsp;material | *boolean* | false
 &nbsp;&nbsp;&nbsp;ion | *boolean* | false
@@ -76,21 +81,28 @@ iconBackgroundColor | /^#([0-9a-f]{6})$/i | #ffffff
 statusbarTextColor | black, white | white
 showPhoneFrameOnDesktop | *boolean* | true
 materialSubnavbarFix | *boolean* | true
+completeRoutesFile | *boolean* | true
 specialRoutes | *object* | {}
 pagesWithRequiredLogin | *array* | []
 firebase | *object* |
+&nbsp;&nbsp;&nbsp;useDatabaseService | *boolean* | true
+&nbsp;&nbsp;&nbsp;useStorageService | *boolean* | true
+&nbsp;&nbsp;&nbsp;useEmailLogin | *boolean* | true
+&nbsp;&nbsp;&nbsp;useEmailRegistration | *boolean* | true
 &nbsp;&nbsp;&nbsp;apiKey | *string* | AIzaSyAvzTiqd9fKR-h4asdsadsadasd7Uxl4iXwqSMU1VjGdII
 &nbsp;&nbsp;&nbsp;authDomain | *string* | app-framework-9045a.firebaseapp.com
 &nbsp;&nbsp;&nbsp;databaseURL | *string* | https://app-framework-9045a.firebaseio.com
-&nbsp;&nbsp;&nbsp;storageBucket | *string* | pp-framework-9045a.appspot.com
-&nbsp;&nbsp;&nbsp;allowUserRegistration | *boolean* | true
+&nbsp;&nbsp;&nbsp;storageBucket | *string* | app-framework-9045a.appspot.com
 dev-firebase | *object* |
+&nbsp;&nbsp;&nbsp;useDevFirebaseOnTesting | *boolean* | false
+&nbsp;&nbsp;&nbsp;useDatabaseService | *boolean* | true
+&nbsp;&nbsp;&nbsp;useStorageService | *boolean* | true
+&nbsp;&nbsp;&nbsp;useEmailLogin | *boolean* | true
+&nbsp;&nbsp;&nbsp;useEmailRegistration | *boolean* | true
 &nbsp;&nbsp;&nbsp;apiKey | *string* |
 &nbsp;&nbsp;&nbsp;authDomain | *string* |
 &nbsp;&nbsp;&nbsp;databaseURL | *string* |
 &nbsp;&nbsp;&nbsp;storageBucket | *string* |
-&nbsp;&nbsp;&nbsp;allowUserRegistration | *boolean* | false
-&nbsp;&nbsp;&nbsp;useDevFirebaseOnTesting | *boolean* | false
 appStoreId | *string* |
 playStoreId | *string* |
 useCordovaPlugins | *array* | ["cordova-plugin-statusbar","cordova-plugin-whitelist"]
@@ -136,17 +148,155 @@ This is an overview and reference, please see the Workflow for details.
   - `npm run backup` to create a snapshot of the Firebase database and user list
   - `npm run snapshot` to create a snapshot of your project folder
 
-## Vue hooks
+## Window objects
 
-These hooks you can use in your app and page components.
+You can use several window objects directly from your components:
 
-- `$root.title` - App title
-- `$root.theme` - Active theme (*ios* or *material*)
-- `$root.language` - Active language (*en*, *de*, ...)
-- `$root.config` - Object of *config.json*
-- `$root.user` - User information (null or object with *uid*, *email*, ...)
+- `window._` - [Lodash](https://lodash.com/) library
+- `window.Dom7` - [Dom7](http://framework7.io/docs/dom.html) library
+- `window.f7` - [Framework7](http://framework7.io/docs/init-app.html) instance of your application
+- `window.firebase` - [Firebase](https://firebase.google.com/docs/web/setup) instance (if configured)
+
+## Vue root object
+
+You can use the following information directly from the $root object of all your Vue components:
+
+- `$root.appMode` - Run mode (native, homescreen, mobile, desktop)
+- `$root.config` - Configuration (from config.json file)
+- `$root.user` - Current user (null or object with uid, email, ...)
+- `$root.language` - Current language (could be changed)
+- `$root.theme` - Current theme (ios or material, could be changed)
+- `$root.themeColor` - Current theme color ([list](http://framework7.io/docs/color-themes.html), could be changed)
+- `$root.themeLayout` - Current theme layout ([list](http://framework7.io/docs/color-themes.html), could be changed)
+- `$root.statusbarFont` - Current statusbar font style (default, lightContent, blackTranslucent or blackOpaque, could be changed)
+- `$root.statusbarBackground` - Current statusbar background color (as HEX code, could be changed)
+- `$root.statusbarDisplay` - Current statusbar visibility (true or false, could be changed)
 - `$root.version` - Project version
-- `$root.packageVersion` - Installed App Framework version
+- `$root.frameworkVersion` - App Framework version
+
+## Global data object
+
+To use data across your application, App Framework provides an easy to use global data object. The data object will be immediately restored after each application restart.
+
+### Save data to the global data object
+
+Use `saveData(item, value)` to save data directly from the template section.
+
+```
+<template>
+  ...
+  <f7-link @click="saveData('testItem.subItem', 'test data')">Click to save data</f7-link>
+  ...
+</template>
+```
+
+Use `this.saveData(item, value)` to save data in the component script section.
+
+```
+<script>
+  module.exports = {
+    ...
+    methods: {
+      ...
+      anyMethod: function () {
+        this.saveData('testItem.subItem', 'test data')
+      }
+      ...
+    }
+    ...  
+  }
+</script>
+```
+
+### Remove data from the global data object
+
+Use `removeData(item)` to remove data directly from the template section.
+
+```
+<template>
+  ...
+  <f7-link @click="removeData('testItem.subItem')">Click to remove data</f7-link>
+  ...
+</template>
+```
+
+Use `this.removeData(item)` to remove data in the component script section.
+
+```
+<script>
+  module.exports = {
+    ...
+    methods: {
+      ...
+      anyMethod: function () {
+        this.removeData('testItem.subItem')
+      }
+      ...
+    }
+    ...  
+  }
+</script>
+```
+
+### Get data from the global data object
+
+Use `data.item` to get data in the template section.
+
+```
+<template>
+  ...
+  <f7-block>Item value: {{data.testItem.subItem}}</f7-block>
+  ...
+</template>
+```
+
+Use `this.data.item` to get data in the component script section.
+
+```
+<script>
+  module.exports = {
+    ...
+    methods: {
+      ...
+      anyMethod: function () {
+        let itemData = this.data.testItem.subItem
+      }
+      ...
+    }
+    ...  
+  }
+</script>
+```
+
+## State restoration
+
+After an application switch or closure, the application state may be reset. This means, if your user changed the page or tab, scrolled, opened modals, put in some data before - everything will be gone.
+
+App Framework has an automatic state restoration on each application restart, to let your users continue with the same application state they have had before they left the application.
+
+This restoration includes the following elements:
+
+- URL history per view
+- Selected tabs (requires unique ID attribute per page)
+- Scroll positions
+- Side panels
+- Action sheets (requires unique ID attribute)
+- Login screens (requires unique ID attribute)
+- Pickers (requires unique ID attribute)
+- Popups (requires unique ID attribute)
+- Form inputs data (requires unique form ID attribute)
+- Focus on form input (requires unique NAME attributes per form)
+
+The state is not restored for standard modals, popovers and code-generated modals.
+
+## Hooks
+
+### Window hooks
+
+- `window._` - [Underscore.js](http://underscorejs.org/) library
+- `window.firebase` - Firebase instance
+- `window.$$` - Framework7 Dom7 instance
+- `window.f7` - Framework7 instance
 
 ## Workflow
 
@@ -201,9 +351,12 @@ Run `npm update` to update App Framework to latest sub version. A snapshot of yo
 
 - Run `npm run dev` to start the development server in the web browser
   - `CTRL + C` to stop the development server
-- Run `npm run ios` to open Xcode with an iOS development build
-- Run `npm run android` to open Android Studio with a development build
+- Run `npm run ios` to open an iOS simulator with a development build
+- Run `npm run android` to open an Android emulator with a development build
+
   Confirm Gradle sync and removal of older application installations if asked.
+  
+  If you get an error *Failed to find 'JAVA_HOME' environment variable. Try setting setting it manually.* you have to install the Java SE SDK first.
 
 App Framework fix your code automatically on each test or build command. To disable this behavior, you can set the config parameter *fixCodeOnBuild* to false. If some findings could not be fixed automatically, they will be logged to *code-findings.log*.
 
